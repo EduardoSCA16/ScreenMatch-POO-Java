@@ -1,31 +1,14 @@
 package br.com.alura.screenmatch.models;
 
-public class Filme {
-    public String nome;
-    public int anoLancamento;
-    public boolean incluidoNoPlano;
-    private double somaDasAvaliacoes;
-    private int totalAvaliacoes;
-    public int duracaoEmMinutos;
+// Para herdar atributos e métdodos de outra classe, se usa "extends" e depois o nome da classe
+public class Filme extends Titulo {
+    private String diretor;
 
-    // Getters e Setters
-    // Usados quando um atributo possui visibilidade restrita (private)
-    public int getTotalAvaliacoes() {
-        return totalAvaliacoes;
+    public String getDiretor() {
+        return diretor;
     }
 
-    // Métodos
-    public void exibeFichaTecnica() {
-        System.out.println("Nome do filme: " + nome);
-        System.out.println("Ano de lançamento: " + anoLancamento);
-    }
-
-    public void avalia(double nota) {
-        somaDasAvaliacoes += nota;
-        totalAvaliacoes++;
-    }
-
-    public double pegaMedia() {
-        return somaDasAvaliacoes / totalAvaliacoes;
+    public void setDiretor(String diretor) {
+        this.diretor = diretor;
     }
 }
