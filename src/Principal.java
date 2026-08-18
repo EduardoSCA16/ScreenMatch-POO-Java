@@ -1,6 +1,10 @@
 import br.com.alura.screenmatch.models.Filme;
 import br.com.alura.screenmatch.models.Serie;
 
+// @Deprecated = método ou classe que está obsoleto e não deve ser mais utilizado
+// @Override = Sobrescrever um método da classe "mãe"
+// @NotNull = Usada para validar que um atributo não seja nulo
+
 public class Principal {
     static void main(String[] args) {
         Filme meuFilme = new Filme();
