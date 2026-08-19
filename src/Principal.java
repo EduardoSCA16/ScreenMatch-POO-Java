@@ -1,3 +1,6 @@
+import br.com.alura.screenmatch.calculos.CalculadoraDeTempo;
+import br.com.alura.screenmatch.calculos.FiltroRecomendacao;
+import br.com.alura.screenmatch.models.Episodio;
 import br.com.alura.screenmatch.models.Filme;
 import br.com.alura.screenmatch.models.Serie;
 
@@ -11,7 +14,7 @@ public class Principal {
         meuFilme.setNome("Meu Malvado Favorito");
         meuFilme.setAnoLancamento(2010);
         meuFilme.setDuracaoEmMinutos(180);
-        System.out.println("Duração do meu filme: " + meuFilme.getDuracaoEmMinutos());
+        System.out.println("Duração do meu filme: " + meuFilme.getDuracaoEmMinutos() + "\n\n");
 
         meuFilme.exibeFichaTecnica();
         meuFilme.avalia(8);
@@ -19,7 +22,8 @@ public class Principal {
         meuFilme.avalia(10);
 
         System.out.println("Total de avaliações: " + meuFilme.getTotalAvaliacoes());
-        System.out.printf("Média das avaliações: %.1f\n", meuFilme.pegaMedia());
+        System.out.printf("Média das avaliações: %.1f", meuFilme.pegaMedia());
+        System.out.println("\n\n");
 
         Serie lost = new Serie();
         lost.setNome("Lost");
@@ -28,7 +32,27 @@ public class Principal {
         lost.setTemporadas(10);
         lost.setEpisodiosPorTemporada(10);
         lost.setMinutosPorEspisodio(50);
-        System.out.println("Duração para maratonar Lost: " + lost.getDuracaoEmMinutos());
+        System.out.println("Duração para maratonar Lost: " + lost.getDuracaoEmMinutos() + "\n\n");
 
+        Filme filmeShrek = new Filme();
+        filmeShrek.setNome("Shrek 2");
+        filmeShrek.setAnoLancamento(2008);
+        filmeShrek.setDuracaoEmMinutos(210);
+
+        CalculadoraDeTempo calculadora = new CalculadoraDeTempo();
+
+        calculadora.inclui(meuFilme);
+        calculadora.inclui(filmeShrek);
+        calculadora.inclui(lost);
+        System.out.println("Tempo total da calculadora: " + calculadora.getTempoTotal());
+
+        FiltroRecomendacao filtro = new FiltroRecomendacao();
+        filtro.filtra(meuFilme);
+
+        Episodio episodio = new Episodio();
+        episodio.setNumero(1);
+        episodio.setSerie(lost);
+        episodio.setTotalVisualizacoes(300);
+        filtro.filtra(episodio);
     }
 }
