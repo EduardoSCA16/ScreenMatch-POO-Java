@@ -4,14 +4,15 @@ import br.com.alura.screenmatch.models.Episodio;
 import br.com.alura.screenmatch.models.Filme;
 import br.com.alura.screenmatch.models.Serie;
 
+import java.util.ArrayList;
+
 // @Deprecated = método ou classe que está obsoleto e não deve ser mais utilizado
 // @Override = Sobrescrever um método da classe "mãe"
 // @NotNull = Usada para validar que um atributo não seja nulo
 
 public class Principal {
     static void main(String[] args) {
-        Filme meuFilme = new Filme();
-        meuFilme.setNome("Meu Malvado Favorito");
+        Filme meuFilme = new Filme("Meu Malvado Favorito");
         meuFilme.setAnoLancamento(2010);
         meuFilme.setDuracaoEmMinutos(180);
         System.out.println("Duração do meu filme: " + meuFilme.getDuracaoEmMinutos() + "\n\n");
@@ -20,7 +21,6 @@ public class Principal {
         meuFilme.avalia(8);
         meuFilme.avalia(5);
         meuFilme.avalia(10);
-
         System.out.println("Total de avaliações: " + meuFilme.getTotalAvaliacoes());
         System.out.printf("Média das avaliações: %.1f", meuFilme.pegaMedia());
         System.out.println("\n\n");
@@ -34,8 +34,7 @@ public class Principal {
         lost.setMinutosPorEspisodio(50);
         System.out.println("Duração para maratonar Lost: " + lost.getDuracaoEmMinutos() + "\n\n");
 
-        Filme filmeShrek = new Filme();
-        filmeShrek.setNome("Shrek 2");
+        Filme filmeShrek = new Filme("Shrek 2");
         filmeShrek.setAnoLancamento(2008);
         filmeShrek.setDuracaoEmMinutos(210);
 
@@ -54,5 +53,22 @@ public class Principal {
         episodio.setSerie(lost);
         episodio.setTotalVisualizacoes(300);
         filtro.filtra(episodio);
+
+        Filme filmeDoPaulo = new Filme("Dogville");
+        filmeDoPaulo.setAnoLancamento(2003);
+        filmeDoPaulo.setDuracaoEmMinutos(200);
+        filmeDoPaulo.avalia(10);
+
+        // Criando uma Array List
+        ArrayList<Filme> listaFilmes = new ArrayList<>();
+        listaFilmes.add(filmeDoPaulo);
+        listaFilmes.add(meuFilme);
+        System.out.println("\n\n---- Array List ----");
+        System.out.println("Tamanho da lista " + listaFilmes.size());
+        System.out.println("Primeiro filme: " + listaFilmes.get(0).getNome());
+        System.out.println(listaFilmes);
+        System.out.println("toString do filme: " + listaFilmes.get(0).toString());
+
+
     }
 }
