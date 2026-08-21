@@ -9,6 +9,12 @@ public class Titulo {
     private int totalAvaliacoes;
     private int duracaoEmMinutos;
 
+    // Construtor
+    public Titulo(String nome, int anoLancamento) {
+        this.nome = nome;
+        this.anoLancamento = anoLancamento;
+    }
+
     // Getters e Setters
     // Usados quando um atributo possui visibilidade restrita (private)
 

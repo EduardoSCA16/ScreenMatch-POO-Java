@@ -12,8 +12,8 @@ import java.util.ArrayList;
 
 public class Principal {
     static void main(String[] args) {
-        Filme meuFilme = new Filme("Meu Malvado Favorito");
-        meuFilme.setAnoLancamento(2010);
+
+        Filme meuFilme = new Filme("Meu Malvado Favorito", 2010);
         meuFilme.setDuracaoEmMinutos(180);
         System.out.println("Duração do meu filme: " + meuFilme.getDuracaoEmMinutos() + "\n\n");
 
@@ -25,17 +25,14 @@ public class Principal {
         System.out.printf("Média das avaliações: %.1f", meuFilme.pegaMedia());
         System.out.println("\n\n");
 
-        Serie lost = new Serie();
-        lost.setNome("Lost");
-        lost.setAnoLancamento(2000);
+        Serie lost = new Serie("Lost", 2000);
         lost.exibeFichaTecnica();
         lost.setTemporadas(10);
         lost.setEpisodiosPorTemporada(10);
         lost.setMinutosPorEspisodio(50);
         System.out.println("Duração para maratonar Lost: " + lost.getDuracaoEmMinutos() + "\n\n");
 
-        Filme filmeShrek = new Filme("Shrek 2");
-        filmeShrek.setAnoLancamento(2008);
+        Filme filmeShrek = new Filme("Shrek 2", 2008);
         filmeShrek.setDuracaoEmMinutos(210);
 
         CalculadoraDeTempo calculadora = new CalculadoraDeTempo();
@@ -54,8 +51,7 @@ public class Principal {
         episodio.setTotalVisualizacoes(300);
         filtro.filtra(episodio);
 
-        Filme filmeDoPaulo = new Filme("Dogville");
-        filmeDoPaulo.setAnoLancamento(2003);
+        Filme filmeDoPaulo = new Filme("Dogville", 2003);
         filmeDoPaulo.setDuracaoEmMinutos(200);
         filmeDoPaulo.avalia(10);
 
