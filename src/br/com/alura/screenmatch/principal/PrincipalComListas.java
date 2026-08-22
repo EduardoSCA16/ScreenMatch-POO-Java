@@ -5,6 +5,8 @@ import br.com.alura.screenmatch.models.Serie;
 import br.com.alura.screenmatch.models.Titulo;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class PrincipalComListas {
     static void main(String[] args) {
@@ -33,9 +35,32 @@ public class PrincipalComListas {
             if (item instanceof Filme filme && filme.getClassificacao() > 2) {
                 System.out.println("Classificação " + filme.getClassificacao());
             }
-
-
         }
 
+        // Ordenação de listas
+        ArrayList<String> buscaPorArtista = new ArrayList<>();
+        buscaPorArtista.add("Adam Sandler");
+        buscaPorArtista.add("Rocky Santana");
+        buscaPorArtista.add("Acegeek Silva");
+        System.out.println("\nAntes de ordenar");
+        System.out.println(buscaPorArtista);
+
+        // Organizando a lista em ordem alfabética
+        Collections.sort(buscaPorArtista);
+        System.out.println("Depois da ordenação");
+        System.out.println(buscaPorArtista);
+
+        System.out.println("\nLista de títulos em ordem alfabética");
+        Collections.sort(lista);
+        System.out.println(lista);
+
+        // Usando um Comparator para definir como os elementos da lista serão ordenados:
+        // Comparator.comparing() cria um critério de comparação usando uma propriedade do objeto.
+        // Titulo::getAnoLancamento é uma referência ao método getAnoLancamento(),
+        // que será usado para comparar os objetos pelo ano de lançamento.
+        // O sort() então usa esse critério para ordenar a lista.
+        lista.sort(Comparator.comparing(Titulo::getAnoLancamento));
+        System.out.println("\nOrdenando por ano de lançamento: ");
+        System.out.println(lista);
     }
 }

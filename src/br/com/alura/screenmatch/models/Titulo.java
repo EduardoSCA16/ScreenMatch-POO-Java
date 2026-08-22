@@ -1,7 +1,8 @@
 package br.com.alura.screenmatch.models;
 
 // Esta é uma superclasse, a classe "pai" de Filme e Serie
-public class Titulo {
+// Implementando um Comparable<Titulo> para realizar comparações
+public class Titulo implements Comparable<Titulo> {
     private String nome;
     private int anoLancamento;
     private boolean incluidoNoPlano;
@@ -67,5 +68,12 @@ public class Titulo {
 
     public double pegaMedia() {
         return somaDasAvaliacoes / totalAvaliacoes;
+    }
+
+    // método do implements Comparable<Titulo>
+    // compareTo() compara através da String "getNome()"
+    @Override
+    public int compareTo(Titulo outroTitulo) {
+        return this.getNome().compareTo(outroTitulo.getNome());
     }
 }
