@@ -4,9 +4,7 @@ import br.com.alura.screenmatch.models.Filme;
 import br.com.alura.screenmatch.models.Serie;
 import br.com.alura.screenmatch.models.Titulo;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.*;
 
 public class PrincipalComListas {
     static void main(String[] args) {
@@ -38,7 +36,7 @@ public class PrincipalComListas {
         }
 
         // Ordenação de listas
-        ArrayList<String> buscaPorArtista = new ArrayList<>();
+        List<String> buscaPorArtista = new LinkedList<>();
         buscaPorArtista.add("Adam Sandler");
         buscaPorArtista.add("Rocky Santana");
         buscaPorArtista.add("Acegeek Silva");
