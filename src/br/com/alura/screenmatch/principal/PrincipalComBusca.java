@@ -15,8 +15,10 @@ public class PrincipalComBusca {
         System.out.println("Digite um filme para a busca: ");
         var busca = sc.nextLine();
 
+        String chaveAPI = System.getenv("OMDB_API_KEY");
+
         // Concatenando o filme com a URL
-        String endereco = "https://www.omdbapi.com/?t=" + busca + "&apikey=5ebf0c43";
+        String endereco = "https://www.omdbapi.com/?t=" + busca + "&apikey=" + chaveAPI;
 
         // Design Patterns (padrões de projeto)
         HttpClient client = HttpClient.newHttpClient();
