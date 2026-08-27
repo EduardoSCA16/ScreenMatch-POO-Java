@@ -1,5 +1,11 @@
 package br.com.alura.screenmatch.principal;
 
+import br.com.alura.screenmatch.models.Titulo;
+import br.com.alura.screenmatch.models.TituloOmdb;
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -14,6 +20,9 @@ public class PrincipalComBusca {
 
         System.out.println("Digite um filme para a busca: ");
         var busca = sc.nextLine();
+
+        // Replace troca o espaço por "_"
+        busca = busca.replace(" ", "_");
 
         String chaveAPI = System.getenv("OMDB_API_KEY");
 
@@ -32,6 +41,18 @@ public class PrincipalComBusca {
         HttpResponse<String> response = client
                 .send(request, HttpResponse.BodyHandlers.ofString());
 
-        System.out.println(response.body());
+        String json = response.body();
+        System.out.println(json);
+
+        // Gson é uma biblioteca do Java usada para converter JSON <-> objetos Java
+        Gson gson = new GsonBuilder() // GsonBuilder() define como o Gson vai trabalhar
+                .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE) // Define uma política que cada nome está usando CamelCase
+                .create(); // Termina de configurar o Gson
+        TituloOmdb meuTituloOmdb = gson.fromJson(json, TituloOmdb.class);
+        System.out.println(meuTituloOmdb);
+
+        Titulo meuTitulo = new Titulo(meuTituloOmdb);
+        System.out.println("Título já convertido");
+        System.out.println(meuTitulo);
     }
 }

@@ -1,9 +1,16 @@
 package br.com.alura.screenmatch.models;
 
+import com.google.gson.annotations.SerializedName;
+
 // Esta é uma superclasse, a classe "pai" de Filme e Serie
 // Implementando um Comparable<Titulo> para realizar comparações
 public class Titulo implements Comparable<Titulo> {
+
+    // @SerializedName → relaciona o atributo Java com o nome do campo no JSON.
+    // Ex: @SerializedName("Title") → o JSON possui "Title", mas no Java usamos "nome".
+    @SerializedName("Title")
     private String nome;
+    @SerializedName("Year")
     private int anoLancamento;
     private boolean incluidoNoPlano;
     private double somaDasAvaliacoes;
@@ -14,6 +21,12 @@ public class Titulo implements Comparable<Titulo> {
     public Titulo(String nome, int anoLancamento) {
         this.nome = nome;
         this.anoLancamento = anoLancamento;
+    }
+
+    public Titulo(TituloOmdb meuTituloOmdb) {
+        this.nome = meuTituloOmdb.title();
+        this.anoLancamento = Integer.valueOf(meuTituloOmdb.year());
+        this.duracaoEmMinutos = Integer.valueOf(meuTituloOmdb.runtime().substring(0,2));
     }
 
     // Getters e Setters
@@ -75,5 +88,11 @@ public class Titulo implements Comparable<Titulo> {
     @Override
     public int compareTo(Titulo outroTitulo) {
         return this.getNome().compareTo(outroTitulo.getNome());
+    }
+
+    @Override
+    public String toString() {
+        return "Nome: " + getNome() + "\n" +
+                "Ano Lançamento: " + getAnoLancamento();
     }
 }
