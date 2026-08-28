@@ -1,6 +1,6 @@
 package br.com.alura.screenmatch.models;
 
-import com.google.gson.annotations.SerializedName;
+import br.com.alura.screenmatch.exception.ErroDeConversaoDeAnoException;
 
 // Esta é uma superclasse, a classe "pai" de Filme e Serie
 // Implementando um Comparable<Titulo> para realizar comparações
@@ -8,9 +8,7 @@ public class Titulo implements Comparable<Titulo> {
 
     // @SerializedName → relaciona o atributo Java com o nome do campo no JSON.
     // Ex: @SerializedName("Title") → o JSON possui "Title", mas no Java usamos "nome".
-    @SerializedName("Title")
     private String nome;
-    @SerializedName("Year")
     private int anoLancamento;
     private boolean incluidoNoPlano;
     private double somaDasAvaliacoes;
@@ -25,6 +23,12 @@ public class Titulo implements Comparable<Titulo> {
 
     public Titulo(TituloOmdb meuTituloOmdb) {
         this.nome = meuTituloOmdb.title();
+
+        // Condição para caso o ano que esteja no JSON venha com mais de 4 caracteres
+        if (meuTituloOmdb.year().length() > 4) {
+            // Interrompe a função e é enviada para o a classe de tratamento
+            throw new ErroDeConversaoDeAnoException("Ano inválido. Tem mais de 4 caracteres.");
+        }
         this.anoLancamento = Integer.valueOf(meuTituloOmdb.year());
         this.duracaoEmMinutos = Integer.valueOf(meuTituloOmdb.runtime().substring(0,2));
     }
