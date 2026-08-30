@@ -1,0 +1,26 @@
+[
+  {
+    "Nome": "Matrix",
+    "AnoLancamento": 1993,
+    "IncluidoNoPlano": false,
+    "SomaDasAvaliacoes": 0.0,
+    "TotalAvaliacoes": 0,
+    "DuracaoEmMinutos": 60
+  },
+  {
+    "Nome": "Shrek",
+    "AnoLancamento": 2001,
+    "IncluidoNoPlano": false,
+    "SomaDasAvaliacoes": 0.0,
+    "TotalAvaliacoes": 0,
+    "DuracaoEmMinutos": 90
+  },
+  {
+    "Nome": "Dogville",
+    "AnoLancamento": 2003,
+    "IncluidoNoPlano": false,
+    "SomaDasAvaliacoes": 0.0,
+    "TotalAvaliacoes": 0,
+    "DuracaoEmMinutos": 17
+  }
+]

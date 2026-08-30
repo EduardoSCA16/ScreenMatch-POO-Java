@@ -7,65 +7,88 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 // Consumindo uma API
 public class PrincipalComBusca {
     static void main(String[] args) throws IOException, InterruptedException {
         Scanner sc = new Scanner(System.in);
+        String busca = "";
+        List<Titulo> titulos = new ArrayList<>();
 
-        System.out.println("Digite um filme para a busca: ");
-        var busca = sc.nextLine();
+        // Gson é uma biblioteca do Java usada para converter JSON <-> objetos Java
+        Gson gson = new GsonBuilder()
+                .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE) // Define uma política que cada nome está usando CamelCase
+                .setPrettyPrinting() // Formata o texto identando
+                .create(); // Termina de configurar o Gson
 
-        String chaveAPI = System.getenv("OMDB_API_KEY");
+        while (!busca.equalsIgnoreCase("sair")) {
+            System.out.println("Digite um filme para a busca: ");
+            busca = sc.nextLine();
 
-        // Concatenando o filme com a URL
-        String endereco = "https://www.omdbapi.com/?t=" + busca.replace(" ", "+") + "&apikey=" + chaveAPI;
+            if (busca.equalsIgnoreCase("sair")) {
+                break;
+            }
 
-        try {
-            // Design Patterns (padrões de projeto)
-            HttpClient client = HttpClient.newHttpClient();
+            String chaveAPI = System.getenv("OMDB_API_KEY");
 
-            // .newBuilder() = ferramenta para montar/configurar um objeto
-            // .build() = finaliza a montagem e cria/retorna o objeto
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(endereco))
-                    .build();
+            // Concatenando o filme com a URL
+            String endereco = "https://www.omdbapi.com/?t=" + busca.replace(" ", "+") + "&apikey=" + chaveAPI;
 
-            HttpResponse<String> response = client
-                    .send(request, HttpResponse.BodyHandlers.ofString());
+            try {
+                // Design Patterns (padrões de projeto)
+                HttpClient client = HttpClient.newHttpClient();
 
-            String json = response.body();
-            System.out.println(json);
+                // .newBuilder() = ferramenta para montar/configurar um objeto
+                // .build() = finaliza a montagem e cria/retorna o objeto
+                HttpRequest request = HttpRequest.newBuilder()
+                        .uri(URI.create(endereco))
+                        .build();
 
-            // Gson é uma biblioteca do Java usada para converter JSON <-> objetos Java
-            Gson gson = new GsonBuilder() // GsonBuilder() define como o Gson vai trabalhar
-                    .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE) // Define uma política que cada nome está usando CamelCase
-                    .create(); // Termina de configurar o Gson
-            TituloOmdb meuTituloOmdb = gson.fromJson(json, TituloOmdb.class);
-            System.out.println(meuTituloOmdb);
+                HttpResponse<String> response = client
+                        .send(request, HttpResponse.BodyHandlers.ofString());
 
-            Titulo meuTitulo = new Titulo(meuTituloOmdb);
-            System.out.println("Título já convertido");
-            System.out.println(meuTitulo);
+                String json = response.body();
+                System.out.println("json do Omdb: " + json);
 
-            //Exemplos de Exceptions
-        } catch (NumberFormatException e) {
-            System.out.println("Aconteceu um erro: ");
-            System.out.println(e.getMessage());
+                TituloOmdb meuTituloOmdb = gson.fromJson(json, TituloOmdb.class);
+                System.out.println("\nmeuTituloOmdb: " + meuTituloOmdb);
 
-        } catch (IllegalArgumentException e) {
-            System.out.println("Algum erro de argumento na busca, verifique o endereço.");
+                Titulo meuTitulo = new Titulo(meuTituloOmdb);
+                System.out.println("\nTítulo já convertido");
+                System.out.println(meuTitulo);
 
-        } catch (ErroDeConversaoDeAnoException e) {
-            System.out.println(e.getMessage());
+                titulos.add(meuTitulo);
+
+                //Exemplos de Exceptions
+            } catch (NumberFormatException e) {
+                System.out.println("Aconteceu um erro: ");
+                System.out.println(e.getMessage());
+
+            } catch (IllegalArgumentException e) {
+                System.out.println("Algum erro de argumento na busca, verifique o endereço.");
+
+            } catch (ErroDeConversaoDeAnoException e) {
+                System.out.println(e.getMessage());
+
+            }
 
         }
+
+        System.out.println(titulos);
+
+        // Convertendo Objeto Java em JSON
+        FileWriter escrita = new FileWriter("filmes.json");
+        escrita.write(gson.toJson(titulos));
+        escrita.close();
 
         System.out.println("\nO programa finalizou corretamente!");
 
